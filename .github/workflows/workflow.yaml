@@ -12,3 +12,4 @@ jobs:
       #  dotnet-version: '5.x' # SDK Version to use; x will use the latest version of the 3.1 channel
     - run: dotnet restore
     - run: dotnet publish -c Release
+    - run: dotnet run
