@@ -12,6 +12,8 @@ jobs:
     #- run: dotnet publish -c Release
 
     - run: pwd
+    - run: cd ..
+    - run: pwd
     - run: ls
     - name: Publish to Docker Repository
       #uses: elgohr/Publish-Docker-Github-Action@master
@@ -19,7 +21,7 @@ jobs:
       #  name: studiera/test
       #  username: studiera
       #  password: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker build -t studiera/test:latest .
+      run: docker build -t studiera/test:latest ./
     - run: docker login --username=studiera --password ${{ secrets.DOCKER_PASSWORD }}
     - run: docker push studiera/test:latest
 
