@@ -1,6 +1,6 @@
 name: TestActions
 on: 
-  [ pull_request ]
+  [ push ]
 
 jobs:
   job_01:
