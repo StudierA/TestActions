@@ -1,7 +1,6 @@
 name: TestActions
 on: 
-  push:
-    branches: [ deploy ]
+  [ pull_request ]
 
 jobs:
   job_01:
