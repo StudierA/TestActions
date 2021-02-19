@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AllInOne\\repo\\TestActions\\TestActions.csproj": {}
+    "D:\\AllInOne\\repo\\TestActions\\TestActions\\TestActions.csproj": {}
   },
   "projects": {
-    "D:\\AllInOne\\repo\\TestActions\\TestActions.csproj": {
+    "D:\\AllInOne\\repo\\TestActions\\TestActions\\TestActions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AllInOne\\repo\\TestActions\\TestActions.csproj",
+        "projectUniqueName": "D:\\AllInOne\\repo\\TestActions\\TestActions\\TestActions.csproj",
         "projectName": "TestActions",
-        "projectPath": "D:\\AllInOne\\repo\\TestActions\\TestActions.csproj",
+        "projectPath": "D:\\AllInOne\\repo\\TestActions\\TestActions\\TestActions.csproj",
         "packagesPath": "C:\\Users\\Noah\\.nuget\\packages\\",
-        "outputPath": "D:\\AllInOne\\repo\\TestActions\\obj\\",
+        "outputPath": "D:\\AllInOne\\repo\\TestActions\\TestActions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
