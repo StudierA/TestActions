@@ -7,21 +7,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    #- uses: actions/setup-dotnet@v1
-    #- run: dotnet restore
-    #- run: dotnet publish -c Release
+    - run: |
+        pwd
+        ls
+    - run: |
+        docker build -t  ${{ secrets.DOCKER_USERNAME }}/test ./
+        docker login --username=${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/test
 
-    - run: pwd
-    #- run: cd ..
-    #- run: pwd
-    - run: ls
-    - name: Publish to Docker Repository
-      #uses: elgohr/Publish-Docker-Github-Action@master
-      #with:
-      #  name: studiera/test
-      #  username: studiera
-      #  password: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker build -t studiera/test:latest ./
-    - run: docker login --username=studiera --password ${{ secrets.DOCKER_PASSWORD }}
-    - run: docker push studiera/test:latest
+    - uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.HOST_USERNAME }}
+        password: ${{ secrets.HOST_PASSWORD }}
+        port: 22
+        script: |
+          docker stop $(docker ps --filter ancestor=${{ secrets.DOCKER_USERNAME }}/test -q)
+          docker rm -f $(docker ps -a --filter ancestor=${{ secrets.DOCKER_USERNAME }}/test:latest -q)
+          docker rmi -f $(docker images ${{ secrets.DOCKER_USERNAME }}/test:latest -q)
+          #docker login --username=${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+          docker pull ${{ secrets.DOCKER_USERNAME }}/test
+          docker run -d -p 5371:80 ${{ secrets.DOCKER_USERNAME }}/test
 
+        
