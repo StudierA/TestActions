@@ -6,10 +6,14 @@ jobs:
     name: build .net core app
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@main
-    - uses: actions/setup-dotnet@v1
-      #with:
-      #  dotnet-version: '5.x' # SDK Version to use; x will use the latest version of the 3.1 channel
-    - run: dotnet restore
-    - run: dotnet publish -c Release
-    - run: dotnet run
+    #- uses: actions/checkout@main
+    #- uses: actions/setup-dotnet@v1
+    #- run: dotnet restore
+    #- run: dotnet publish -c Release
+
+    - name: Publish to Docker Repository
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: studiera/test
+        username: studiera
+        password: ${{ secrets.DOCKER_PASSWORD }}
