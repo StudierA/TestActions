@@ -1,15 +1,15 @@
-name: Api Build And Publish With Docker
-on: push
+name: TestActions
+on: 
+  push:
+    branches: [ deploy ]
 
 jobs:
-  build:
-    name: build .net core app
+  job_01:
+    name: build docker & deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@main
-    - run: |
-        pwd
-        ls
+
     - run: |
         docker build -t  ${{ secrets.DOCKER_USERNAME }}/test ./
         docker login --username=${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
@@ -22,11 +22,11 @@ jobs:
         password: ${{ secrets.HOST_PASSWORD }}
         port: 22
         script: |
-          docker stop $(docker ps --filter ancestor=${{ secrets.DOCKER_USERNAME }}/test -q)
-          docker rm -f $(docker ps -a --filter ancestor=${{ secrets.DOCKER_USERNAME }}/test:latest -q)
-          docker rmi -f $(docker images ${{ secrets.DOCKER_USERNAME }}/test:latest -q)
-          #docker login --username=${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
-          docker pull ${{ secrets.DOCKER_USERNAME }}/test
-          docker run -d -p 5371:80 ${{ secrets.DOCKER_USERNAME }}/test
+          repo_01=${{ secrets.DOCKER_USERNAME }}/test
+          docker stop $(docker ps --filter ancestor=${repo_01} -q)
+          docker rm -f $(docker ps -a --filter ancestor=${repo_01}  -q)
+          docker rmi -f $(docker images ${repo_01}  -q)
+          docker pull ${repo_01} 
+          docker run -d -p 5371:80 ${repo_01} 
 
         
