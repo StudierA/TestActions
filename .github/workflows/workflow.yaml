@@ -6,10 +6,8 @@ jobs:
     name: build .net core app
     runs-on: ubuntu-latest
     steps:
-    - name: pull code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@main
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5'
-    - name: restore dependencies
-      run: dotnet restore
+        dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+    - run: dotnet restore
